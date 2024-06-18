@@ -668,14 +668,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ced3678a2879b30306d323f4542626697a464a97c0a07c9aebf7ebca65cd4dde"
 
 [[patch.unused]]
-name = "revm"
-version = "9.0.0"
-
-[[patch.unused]]
-name = "revm-primitives"
-version = "4.0.0"
-
-[[patch.unused]]
 name = "alloy-eips"
 version = "0.1.0"
 
@@ -686,3 +678,11 @@ version = "0.1.0"
 [[patch.unused]]
 name = "alloy-rpc-types"
 version = "0.1.0"
+
+[[patch.unused]]
+name = "revm"
+version = "9.0.0"
+
+[[patch.unused]]
+name = "revm-primitives"
+version = "4.0.0"
