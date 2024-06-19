@@ -73,12 +73,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bytes"
-version = "1.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "514de17de45fdb8dc022b1a7975556c53c86f9f0aa5f534b98977b171857c2c9"
-
-[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -426,22 +420,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rlp"
-version = "0.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb919243f34364b6bd2fc10ef797edbfa75f33c252e7998527479c6d6b47e1ec"
-dependencies = [
- "bytes",
- "rustc-hex",
-]
-
-[[package]]
-name = "rustc-hex"
-version = "2.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e75f6a532d0fd9f7f13144f392b6ad56a32696bfcd9c78f797f16bbb6f072d6"
-
-[[package]]
 name = "sec1"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -548,7 +526,6 @@ dependencies = [
  "k256",
  "pest",
  "pest_derive",
- "rlp",
  "sha3",
 ]
 
@@ -666,23 +643,3 @@ name = "zeroize"
 version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ced3678a2879b30306d323f4542626697a464a97c0a07c9aebf7ebca65cd4dde"
-
-[[patch.unused]]
-name = "alloy-eips"
-version = "0.1.0"
-
-[[patch.unused]]
-name = "alloy-genesis"
-version = "0.1.0"
-
-[[patch.unused]]
-name = "alloy-rpc-types"
-version = "0.1.0"
-
-[[patch.unused]]
-name = "revm"
-version = "9.0.0"
-
-[[patch.unused]]
-name = "revm-primitives"
-version = "4.0.0"

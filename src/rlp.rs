@@ -47,11 +47,7 @@ pub(crate) fn encode_rlp(item: RlpItem) -> Vec<u8> {
             }
         },
         RlpItem::List(list) => {
-            let mut encoded = list
-                .into_iter()
-                .map(|item| encode_rlp(item))
-                .flatten()
-                .collect::<Vec<_>>();
+            let mut encoded = list.into_iter().flat_map(encode_rlp).collect::<Vec<_>>();
             match encoded.len() {
                 0..=55 => {
                     bytes.push(0xC0 + encoded.len() as u8);
@@ -129,10 +125,10 @@ fn fmt_rlp(item: &RlpItem, f: &mut fmt::Formatter<'_>, depth: usize) -> fmt::Res
         RlpItem::List(list) => match list.len() {
             0 => write!(f, "{:indent$}[]", "", indent = depth),
             _ => {
-                write!(f, "{:indent$}[\n", "", indent = depth)?;
+                writeln!(f, "{:indent$}[", "", indent = depth)?;
                 for item in list.iter() {
-                    fmt_rlp(&item, f, depth + 2)?;
-                    write!(f, "\n")?;
+                    fmt_rlp(item, f, depth + 2)?;
+                    writeln!(f)?;
                 }
                 write!(f, "{:indent$}]", "", indent = depth)
             }

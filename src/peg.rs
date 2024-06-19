@@ -38,7 +38,7 @@ fn rlp_ast(pair: Pair<'_, Rule>) -> RlpItem {
             let val = match val.len() {
                 0 => vec![],
                 _ if val.len() % 2 != 0 => hex::decode(&format!("0{}", val)).unwrap(),
-                _ => hex::decode(&format!("{}", val)).unwrap(),
+                _ => hex::decode(val).unwrap(),
             };
             RlpItem::Data(val)
         }

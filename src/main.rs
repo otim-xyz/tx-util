@@ -1,3 +1,17 @@
+//! # tx-util
+
+#![warn(
+    missing_docs,
+    non_ascii_idents,
+    unreachable_pub,
+    unused_crate_dependencies,
+    unused_results,
+    unused_qualifications,
+    nonstandard_style,
+    rustdoc::all
+)]
+#![deny(rust_2018_idioms, unsafe_code)]
+
 mod peg;
 mod rlp;
 
