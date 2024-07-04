@@ -3,7 +3,7 @@
 #![warn(
     missing_docs,
     non_ascii_idents,
-    unreachable_pub,
+    // unreachable_pub,
     unused_crate_dependencies,
     unused_results,
     unused_qualifications,
@@ -14,6 +14,7 @@
 
 mod peg;
 mod rlp;
+mod transaction;
 
 use crate::rlp::{decode_rlp, encode_rlp, RlpItem};
 use clap::{CommandFactory, Parser, Subcommand};
