@@ -2,6 +2,8 @@
 
 **Utility for rlp-encoding and signing new EIP-2718 typed transactions for testing**
 
+Currently supports type `0x2` and type `0x4` transactions.
+
 ## How does it work
 
 `tx-util` accepts json formatted transactions. A typical [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) transaction is defined as:
@@ -35,7 +37,7 @@ cat eip1559_tx_file | tx-util encode-tx --tx-type 2 --signer 0x...
 
 ### EIP-7702
 
-`tx-util` can also sign [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) and their authorizations.
+`tx-util` can also sign [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) transactions and their authorizations.
 
 ```json
 {
