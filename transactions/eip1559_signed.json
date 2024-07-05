@@ -1,0 +1,21 @@
+{
+  "chainId": 1,
+  "nonce": 0,
+  "maxPriorityFeePerGas": 373223425,
+  "maxFeePerGas": 34714654540,
+  "gasLimit": 63221,
+  "destination": "0x695461EF560Fa4d3a3e7332c9bfcEC261c11a1B6",
+  "amount": 0,
+  "data": "0xa9059cbb0000000000000000000000005a96834046c1dff63119eb0eed6330fc5007a1d700000000000000000000000000000000000000000000000000000001a1432720",
+  "accessList": [
+      {
+          "address": "0x8DfDf61F2Eb938b207c228b01a2918b196992ABf",
+          "storageKeys": [
+              "0x0000000000000000000000000000000000000000000000000000000000000003"
+          ]
+      }
+  ],
+  "yParity": true,
+  "r": "0x52ee022a326abb33e6bebab1fa694043371ab41a7a985ea23d48bd78502be87c",
+  "s": "0x5a0f69dc8009a1e449bfbc8b13220bc40337da1325c261afdac1803f26d0e9d5"
+}

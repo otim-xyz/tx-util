@@ -4,100 +4,80 @@
 
 ## How does it work
 
-`tx-util` accepts transactions in the following format. A typical [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) transaction can be defined as below, representing `[chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list]`
+`tx-util` accepts json formatted transactions. A typical [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) transaction is defined as:
 
-```
-[
-  0x539
-  0x1
-  0x163ef001
-  0x81527974c
-  0xf6f5
-  0x9530901da626663c0679615aa345d88f059c2919
-  0x
-  0xd09de08b
-  []
-]
+```json
+{
+  "chainId": 1,
+  "nonce": 10,
+  "maxPriorityFeePerGas": 373223425,
+  "maxFeePerGas": 34714654540,
+  "gasLimit": 63221,
+  "destination": "0x695461EF560Fa4d3a3e7332c9bfcEC261c11a1B6",
+  "amount": 0,
+  "data": "0x",
+  "accessList": [
+      {
+          "address": "0x8DfDf61F2Eb938b207c228b01a2918b196992ABf",
+          "storageKeys": [
+              "0x0000000000000000000000000000000000000000000000000000000000000003"
+          ]
+      }
+  ]
+}
 ```
 
 A signed EIP-1559 tx can be created from this:
 
 ```shell
-cat eip1559_tx_file | tx-util encode-tx --tx-type 2 | tx-util sign-tx --private-key 0x...
+cat eip1559_tx_file | tx-util encode-tx --tx-type 2 --signer 0x...
 ```
 
 ### EIP-7702
 
-`tx-util` can also sign arbitrary payloads, e.g., for [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) authorizations.
+`tx-util` can also sign [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) and their authorizations.
 
-```
-[
-  0x539
-  0xdac17f958d2ee523a2206206994597c13d831ec7
-  []
-]
-```
-
-Represents `[chain_id, address, [nonce]]` which can be encoded and signed (with magic byte `0x05`):
-
-```shell
-cat eip7702_auth_file | tx-util encode-rlp | tx-util sign-auth --magic 5 --private-key 0x... | tx-util decode-rlp
-```
-
-Which will produce e.g.,:
-
-```
-[
-  0x539
-  0xdac17f958d2ee523a2206206994597c13d831ec7
-  []
-  0x1
-  0xc2ae3e86f07b6acbb36ab44c75f273d71abffd7e38d9fa2d6990f2708e338cfb
-  0x123b773d3c056ae51819bee0d4533919907e163b28ff0e7538477d3dc9619ac2
-]
-```
-
-Which can be added to an `authorization_list`:
-
-```
-[
-  0x539
-  0x
-  0x163ef001
-  0x81527974c
-  0xf6f5
-  0xaac09f958d2ee523a9906206994597c23d831ec8
-  0x
-  0xa9059cbb
-  []
-  [
-    [
-      0x539
-      0xdac17f958d2ee523a2206206994597c13d831ec7
-      []
-      0x1
-      0xc2ae3e86f07b6acbb36ab44c75f273d71abffd7e38d9fa2d6990f2708e338cfb
-      0x123b773d3c056ae51819bee0d4533919907e163b28ff0e7538477d3dc9619ac2
-    ]
+```json
+{
+  "chainId": 1,
+  "nonce": 0,
+  "maxPriorityFeePerGas": 373223425,
+  "maxFeePerGas": 34714654540,
+  "gasLimit": 63221,
+  "destination": "0x695461EF560Fa4d3a3e7332c9bfcEC261c11a1B6",
+  "amount": 0,
+  "data": "0x",
+  "accessList": [
+      {
+          "address": "0x8DfDf61F2Eb938b207c228b01a2918b196992ABf",
+          "storageKeys": [
+              "0x0000000000000000000000000000000000000000000000000000000000000003"
+          ]
+      }
+  ],
+  "authorizationList": [
+      {
+          "chainId": 1,
+          "address": "0xD571b8bcd11dF08F0459009Dd1bd664127A431Ee",
+          "nonce": 2
+      },
+      {
+          "chainId": 1,
+          "address": "0xD571b8bcd11dF08F0459009Dd1bd664127A431Ee",
+          "nonce": null
+      }
   ]
-]
+}
 ```
 
-And encoded and signed (as type `0x04`):
+The number of `--authorizer` must match the number of items in the `authorization_list`:
 
 ```shell
-cat eip7702_tx_file | tx-util encode-tx --tx-type 4 | tx-util sign-tx --private-key 0x...
+cat eip7702_auth_file | tx-util encode-tx --tx-type 2 \
+    --signer 0x... \
+    --authorizer 0x... \
+    --authorizer 0x...
 ```
-
-### Integer handling
-
-Integers are expected to be hex-ecoded values (byte strings) following the Ethereum [spec](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp/):
-
-> For a positive integer, it is converted to the shortest byte array whose big-endian interpretation is the integer, and then encoded as a string according to the rules below.
-
-### Booleans
-
-Booleans are treated as integers as well, i.e., `true` is `0x01` while `false` is `0x80` (an empty byte string). 
 
 ## Installation
 
@@ -124,10 +104,6 @@ cargo uninstall tx-util
 
 **This utility has not been checked for correctness and should not be used to generate transactions for mainnet. It is for testing purposes only.**
 
-**Also, this utility does not support error handling and should not be used e.g., in CI pipelines.**
-
-
 ## Getting help
 
 Issues and PRs are welcome. We can also be reached at `gm@otim.xyz` if you have any additional questions.
-

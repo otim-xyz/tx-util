@@ -1,0 +1,12 @@
+{
+  "chainId": 1,
+  "nonce": 0,
+  "maxPriorityFeePerGas": 373223425,
+  "maxFeePerGas": 34714654540,
+  "gasLimit": 63221,
+  "destination": "0x695461EF560Fa4d3a3e7332c9bfcEC261c11a1B6",
+  "amount": 0,
+  "data": "0x",
+  "accessList": [],
+  "authorizationList": []
+}
