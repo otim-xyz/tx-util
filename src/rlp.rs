@@ -27,7 +27,7 @@ impl RlpItem {
 
 impl From<&[u8]> for RlpItem {
     fn from(value: &[u8]) -> Self {
-        RlpItem::Data(value.iter().cloned().collect::<Vec<_>>())
+        RlpItem::Data(value.to_vec())
     }
 }
 
@@ -116,7 +116,7 @@ impl From<RlpItem> for Vec<u8> {
             RlpItem::List(list) => {
                 let mut encoded = list
                     .into_iter()
-                    .flat_map(|item| Into::<Vec<u8>>::into(item))
+                    .flat_map(Into::<Vec<u8>>::into)
                     .collect::<Vec<_>>();
                 match encoded.len() {
                     0..=55 => {

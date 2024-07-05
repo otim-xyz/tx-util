@@ -1,3 +1,5 @@
+#![allow(clippy::vec_init_then_push)]
+
 use crate::rlp::RlpItem;
 use alloy_primitives::{Address, Bytes, FixedBytes, U256, U64};
 use k256::ecdsa::{signature::hazmat::PrehashSigner, SigningKey};
@@ -205,7 +207,7 @@ impl From<Authorization> for RlpItem {
         items.push(value.address.as_slice().into());
         // EIP-7702 optional nonce is encoded as an empty list
         items.push(RlpItem::List(
-            value.nonce.map(|n| vec![n.into()]).unwrap_or(vec![]),
+            value.nonce.map(|n| vec![n.into()]).unwrap_or_default(),
         ));
         if let Some(signature) = value.signature {
             let mut rlp: Vec<RlpItem> = signature.into();
