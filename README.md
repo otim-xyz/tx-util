@@ -75,7 +75,7 @@ cat eip1559_tx_file | tx-util encode-tx --tx-type 2 --signer 0x...
 The number of `--authorizer` must match the number of items in the `authorization_list`:
 
 ```shell
-cat eip7702_auth_file | tx-util encode-tx --tx-type 2 \
+cat eip7702_auth_file | tx-util encode-tx --tx-type 4 \
     --signer 0x... \
     --authorizer 0x... \
     --authorizer 0x...
